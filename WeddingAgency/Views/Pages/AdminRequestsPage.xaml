@@ -1,0 +1,121 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.AdminRequestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminRequestsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Рассмотрение входящих заявок и детальных смет" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,25"/>
+
+        <DataGrid x:Name="GridRequests" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" BorderThickness="0" RowHeaderWidth="0"
+                  RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Поступила" Binding="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="140" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Title}" Width="180" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Повод (Тип)" Binding="{Binding EventTypes.TypeName}" Width="130" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Локация / Адрес" Binding="{Binding Location}" Width="200" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Заказчик" Binding="{Binding Users.LastName}" Width="120" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Бюджет" Binding="{Binding Budget, StringFormat={}{0:N2} руб.}" Width="120" IsReadOnly="True"/>
+
+                <DataGridTemplateColumn Header="Управление статусом" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="ComboRequestStatus" 
+                                      Height="32" 
+                                      SelectedValuePath="StatusID" 
+                                      DisplayMemberPath="StatusName" 
+                                      SelectedValue="{Binding StatusID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      Loaded="ComboRequestStatus_Loaded"
+                                      SelectionChanged="ComboRequestStatus_SelectionChanged"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Действие" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Обновить" Click="BtnAcceptRequest_Click" Padding="12,4" Height="30" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+            <!-- ШАБЛОН ДЕТАЛЕЙ ЗАКАЗА -->
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource AccentSecondaryBrush}" BorderThickness="1.5,0,0,0" Padding="20,15" Margin="10,5,10,10">
+                        <StackPanel>
+                            <TextBlock Text="ДЕТАЛЬНЫЙ СОСТАВ СМЕТЫ ПРАЗДНИКА:" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,12"/>
+
+                            <!-- Внутренний список элементов сметы -->
+                            <ListBox ItemsSource="{Binding EventItems}" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Замените блок Grid внутри ListBox.ItemTemplate на этот чистый вариант -->
+                                        <Grid Margin="0,3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="160"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Выводим названия напрямую из связанных таблиц БД. 
+         Пустые поля автоматически останутся невидимыми -->
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding CatalogItems.ItemName}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                <TextBlock Text="{Binding Partners.PartnerName}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                <TextBlock Text="{Binding HolidayProducts.ProductName}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                            </StackPanel>
+
+                                            <!-- Количество -->
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <TextBlock Text="Кол-во: " FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                                <TextBlock Text="{Binding Quantity}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                            </StackPanel>
+
+                                            <!-- Цена за единицу -->
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                <TextBlock Text="Цена: " FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                                <TextBlock Text="{Binding PricePerUnit, StringFormat={}{0:N2} р.}" FontSize="12" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                            </StackPanel>
+
+                                            <!-- Итоговая стоимость строки сметы -->
+                                            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                <TextBlock Text="Сумма: " FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                                <TextBlock Text="{Binding PricePerUnit, StringFormat={}{0:N2} руб.}" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource AccentSecondaryBrush}"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Focusable" Value="False"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -1,0 +1,123 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.SubCatalogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SubCatalogPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BtnBack" Content="Назад" Click="BtnBack_Click" Padding="15,6" Grid.Column="0" Background="{DynamicResource InputBorderBrush}" Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <TextBlock x:Name="TxtCategoryHeader" Text="Название категории" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Grid.Column="1" VerticalAlignment="Center" Margin="20,0,0,0"/>
+        </Grid>
+
+        <ListBox x:Name="ListPartners" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- Строка-карточка партнера с маленькой аватаркой -->
+                    <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="10" Margin="0,0,0,15" Padding="15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Аватарка -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Текст -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Действия -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Маленькая круглая или скругленная аватарка 80х80 -->
+                            <Border Grid.Column="0" Width="80" Height="80" CornerRadius="40" Background="{DynamicResource InputBorderBrush}" Margin="0,0,15,0" VerticalAlignment="Center" ClipToBounds="True">
+                                <Image Source="{Binding ImagePath}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+
+                            <!-- Описание бренда -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding PartnerName}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding Notes}" FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,8"/>
+
+                                <!-- Ставка в час (только для мастеров) -->
+                                <TextBlock x:Name="TxtPrice" Text="{Binding PersonalPrice, StringFormat={}{0:N0} руб./час}" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource AccentSecondaryBrush}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsCompany}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Блок кнопок и выбора параметров справа -->
+                            <Grid Grid.Column="2" VerticalAlignment="Center" Margin="20,0,0,0">
+                                <Button x:Name="BtnViewOffers" Content="Посмотреть предложения" Click="BtnViewOffers_Click" Padding="15,10" Background="{DynamicResource AccentMainBrush}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsCompany}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+                                <StackPanel x:Name="PanelSingleSpecialist" Orientation="Horizontal">
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsCompany}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+
+                                    <StackPanel Margin="0,0,15,0" VerticalAlignment="Center">
+                                        <UniformGrid Columns="2" Rows="2">
+                                            <TextBlock Text="С:" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="TxtStart" Width="60" Text="12:00" Margin="5,2" HorizontalContentAlignment="Center"/>
+                                            <TextBlock Text="До:" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="TxtEnd" Width="60" Text="18:00" Margin="5,2" HorizontalContentAlignment="Center"/>
+                                        </UniformGrid>
+                                    </StackPanel>
+                                    <Button Content="Выбрать" Click="BtnAddToCart_Click" Padding="15,10"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+    </Grid>
+</Page>

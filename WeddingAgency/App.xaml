@@ -1,0 +1,16 @@
+﻿<Application x:Class="WeddingAgency.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WeddingAgency"
+             StartupUri="Views/Windows/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 1. Текущая активная тема (Светлая по умолчанию) -->
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+                <!-- 2. Стили элементов управления со скруглениями -->
+                <ResourceDictionary Source="Themes/Controls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

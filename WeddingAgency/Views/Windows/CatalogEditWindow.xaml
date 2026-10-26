@@ -1,0 +1,95 @@
+﻿<Window x:Class="WeddingAgency.Views.Windows.CatalogEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeddingAgency.Views.Windows"
+        mc:Ignorable="d"
+        Title="Карточка редактирования каталога" Height="450" Width="450"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{DynamicResource CardBackgroundBrush}">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="TxtHeader" Grid.Row="0" Text="Добавление позиции" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="FormPanel">
+                <StackPanel x:Name="PanelService" Visibility="Collapsed">
+                    <TextBlock Text="Выберите партнера:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <ComboBox x:Name="ComboPartners" DisplayMemberPath="PartnerName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Название услуги:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtServiceName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Описание услуги:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtServiceDesc" Height="50" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,12"/>
+                    <TextBlock Text="Базовая цена (руб):" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtServicePrice" Margin="0,0,0,12"/>
+                    <TextBlock Text="Изображение услуги:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtServiceImgPath" IsReadOnly="True" VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" Content="Обзор..." Click="BtnBrowseImage_Click" Padding="10,0" Height="30" Margin="5,0,0,0"/>
+                    </Grid>
+                    <Image x:Name="ImgPreviewService" Height="100" HorizontalAlignment="Left" Margin="0,0,0,12" Stretch="Uniform"/>
+                </StackPanel>
+
+                <!-- Поля для ТОВАРА (HolidayProducts) -->
+                <StackPanel x:Name="PanelProduct" Visibility="Collapsed">
+                    <TextBlock Text="Категория товара:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <ComboBox x:Name="ComboProductTypes" DisplayMemberPath="TypeName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Название товара:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtProductName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Описание:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtProductDesc" Height="50" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,12"/>
+                    <TextBlock Text="Цена (руб):" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtProductPrice" Margin="0,0,0,12"/>
+                    <TextBlock Text="Изображение товара:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtProductImgPath" IsReadOnly="True" VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" Content="Обзор..." Click="BtnBrowseImage_Click" Padding="10,0" Height="30" Margin="5,0,0,0"/>
+                    </Grid>
+                    <Image x:Name="ImgPreviewProduct" Height="100" HorizontalAlignment="Left" Margin="0,0,0,12" Stretch="Uniform"/>
+                </StackPanel>
+
+                <!-- Поля для ПАРТНЕРА (Partners) -->
+                <StackPanel x:Name="PanelPartner" Visibility="Collapsed">
+                    <TextBlock Text="Направление деятельности (Категория):" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <ComboBox x:Name="ComboCategories" DisplayMemberPath="CategoryName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Имя специалиста / Название бренда:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtPartnerName" Margin="0,0,0,12"/>
+                    <TextBlock Text="Заметки / Описание:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtPartnerNotes" Height="50" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,12"/>
+                    <CheckBox x:Name="CheckIsCompany" Content="Это компания / салон (имеет прайс-лист)" Margin="0,0,0,12" FontWeight="SemiBold"/>
+                    <TextBlock Text="Ставка (руб/час для одиночных мастеров):" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtPartnerPrice" Margin="0,0,0,12"/>
+                    <TextBlock Text="Фото / Логотип партнера:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtPartnerImgPath" IsReadOnly="True" VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" Content="Обзор..." Click="BtnBrowseImage_Click" Padding="10,0" Height="30" Margin="5,0,0,0"/>
+                    </Grid>
+                    <Image x:Name="ImgPreviewPartner" Height="100" HorizontalAlignment="Left" Margin="0,0,0,12" Stretch="Uniform"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <UniformGrid Grid.Row="2" Columns="2" Margin="0,15,0,0">
+            <Button Content="Сохранить" Click="BtnSave_Click" Margin="0,0,10,0" FontWeight="Bold"/>
+            <Button Content="Отмена" Click="BtnCancel_Click" Background="{DynamicResource InputBorderBrush}" Foreground="{DynamicResource TextPrimaryBrush}"/>
+        </UniformGrid>
+    </Grid>
+</Window>

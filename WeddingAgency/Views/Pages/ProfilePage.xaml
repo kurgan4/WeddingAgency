@@ -1,0 +1,147 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProfilePage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,20,0">
+            <StackPanel>
+                <TextBlock Text="Личный кабинет" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+                <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="12" Padding="20" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Личные данные" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Логин:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtLogin" IsReadOnly="True" Background="#F5F5F3" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Фамилия:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtLastName" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Имя:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtFirstName" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Email:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtEmail" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Номер телефона:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtPhone" Margin="0,0,0,20"/>
+
+                        <Button Content="Сохранить профиль" Click="BtnSave_Click" Padding="0,10" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="12" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="Безопасность и пароль" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Текущий пароль:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <PasswordBox x:Name="PassOld" Height="38" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Новый пароль:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <PasswordBox x:Name="PassNew" Height="38" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Подтвердите новый пароль:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <PasswordBox x:Name="PassConfirm" Height="38" Margin="0,0,0,20"/>
+
+                        <Button Content="Изменить пароль" Click="BtnChangePassword_Click" Padding="0,10" Background="{DynamicResource AccentSecondaryBrush}" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="12" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="Оставить отзыв об агентстве" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Ваша оценка (от 1 до 5):" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="ComboRating" Height="36" Margin="0,0,0,12">
+                            <ComboBoxItem Content="5 — Отлично" IsSelected="True"/>
+                            <ComboBoxItem Content="4 — Хорошо"/>
+                            <ComboBoxItem Content="3 — Удовлетворительно"/>
+                            <ComboBoxItem Content="2 — Плохо"/>
+                            <ComboBoxItem Content="1 — Ужасно"/>
+                        </ComboBox>
+
+                        <TextBlock Text="Текст вашего отзыва:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtReviewText" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,15" Padding="5"/>
+
+                        <Button Content="Отправить отзыв" Click="BtnSubmitReview_Click" Padding="0,10" FontWeight="Bold" Background="{DynamicResource AccentMainBrush}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Ваши актуальные заказы" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+            <ListBox x:Name="ListUserOrders" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="10" Margin="0,0,0,15" Padding="20">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" Loaded="OrderRowPanel_Loaded">
+                                    <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+
+                                    <TextBlock x:Name="TxtOrderDetails" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentMainBrush}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+                                    <UniformGrid Columns="2" Rows="2" Margin="0,0,0,10">
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <TextBlock Text="Дата: " Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Text="{Binding EventDate, StringFormat={}{0:dd.MM.yyyy}}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <TextBlock Text="Бюджет: " Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Text="{Binding Budget, StringFormat={}{0:N2} руб.}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <TextBlock Text="Статус: " Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Text="{Binding EventStatuses.StatusName}" FontWeight="SemiBold" Foreground="{DynamicResource AccentSecondaryBrush}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <TextBlock Text="Создан: " Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy}}" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                        </StackPanel>
+                                    </UniformGrid>
+
+                                    <Border x:Name="BorderWeddingNotice" Background="#E3F2FD" BorderBrush="#90CAF9" BorderThickness="1" CornerRadius="6" Padding="12,8" HorizontalAlignment="Left" Visibility="Collapsed">
+                                        <TextBlock Text="С вами свяжутся для уточнения данных при личной встрече" Foreground="#0D47A1" FontWeight="SemiBold" FontSize="12" TextWrapping="Wrap"/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Page>

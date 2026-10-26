@@ -1,0 +1,116 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.AdminCatalogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminCatalogPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Управление номенклатурой, партнерами и ассортиментом" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+        <!-- Панель инструментов: Добавить и Редактировать -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <Button x:Name="BtnAdd" Content="Добавить" Click="BtnAdd_Click" Padding="20,8" Margin="0,0,10,0"/>
+            <Button x:Name="BtnEdit" Content="Редактировать" Click="BtnEdit_Click" Padding="20,8" Background="{DynamicResource AccentSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- Главный контейнер управления разделами -->
+        <TabControl x:Name="TabCatalogContainer" Grid.Row="2" Background="Transparent" BorderThickness="0">
+
+            <!-- ВКЛАДКА 1: УСЛУГИ КОМПАНИЙ -->
+            <TabItem Header="Услуги и предложения партнеров" Padding="15,6" FontSize="13" FontWeight="SemiBold">
+                <DataGrid x:Name="GridServices" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" BorderThickness="0" Margin="0,15,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Партнер / Компания" Binding="{Binding Partners.PartnerName}" Width="180" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Наименование услуги" Binding="{Binding ItemName}" Width="220"/>
+                        <DataGridTextColumn Header="Описание предложения" Binding="{Binding Description}" Width="*"/>
+                        <DataGridTextColumn Header="Стоимость (руб)" Binding="{Binding BasePrice, StringFormat={}{0:N2}}" Width="120"/>
+
+                        <DataGridTemplateColumn Header="Доступен" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Действие" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Сохранить" Click="BtnSaveService_Click" Padding="8,2" Height="26"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- ВКЛАДКА 2: ПРАЗДНИЧНЫЕ ТОВАРЫ -->
+            <TabItem Header="Праздничные товары" Padding="15,6" FontSize="13" FontWeight="SemiBold">
+                <DataGrid x:Name="GridProducts" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" BorderThickness="0" Margin="0,15,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Категория" Binding="{Binding HolidayProductTypes.TypeName}" Width="150" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding ProductName}" Width="220"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
+                        <DataGridTextColumn Header="Цена (руб)" Binding="{Binding Price, StringFormat={}{0:N2}}" Width="120"/>
+
+                        <DataGridTemplateColumn Header="Доступен" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Действие" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Сохранить" Click="BtnSaveProduct_Click" Padding="8,2" Height="26"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- ВКЛАДКА 3: УПРАВЛЕНИЕ ПАРТНЕРАМИ -->
+            <TabItem Header="База исполнителей (Партнеры)" Padding="15,6" FontSize="13" FontWeight="SemiBold">
+                <DataGrid x:Name="GridPartners" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" BorderThickness="0" Margin="0,15,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Направление (Категория)" Binding="{Binding ItemCategories.CategoryName}" Width="180" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Имя / Бренд" Binding="{Binding PartnerName}" Width="200"/>
+                        <DataGridTextColumn Header="Заметки / Описание" Binding="{Binding Notes}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="Фирма" Binding="{Binding IsCompany}" Width="90"/>
+                        <DataGridTextColumn Header="Ставка (руб/час)" Binding="{Binding PersonalPrice, StringFormat={}{0:N2}}" Width="130"/>
+
+                        <!-- Заморозка самого партнера -->
+                        <DataGridTemplateColumn Header="Активен" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Действие" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Сохранить" Click="BtnSavePartner_Click" Padding="8,2" Height="26"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

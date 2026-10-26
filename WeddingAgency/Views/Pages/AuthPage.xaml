@@ -1,0 +1,44 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AuthPage">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="320">
+        <StackPanel>
+            <TextBlock Text="Авторизация" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Логин:" Foreground="{DynamicResource TextPrimaryBrush}" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <Grid Margin="0,0,0,15">
+                <TextBox x:Name="TextBoxLogin" Style="{DynamicResource {x:Type TextBox}}"/>
+                <TextBlock Text="Введите ваш уникальный логин" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=TextBoxLogin}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <TextBlock Text="Пароль:" Foreground="{DynamicResource TextPrimaryBrush}" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <Grid Margin="0,0,0,20">
+                <PasswordBox x:Name="PasswordBox" Height="38"/>
+                <TextBlock x:Name="txtHintPass" Text="Введите ваш пароль" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False"/>
+            </Grid>
+
+            <Button x:Name="ButtonEnter" Content="Войти" Click="ButtonEnter_Click" Margin="0,0,0,12"/>
+            <Button x:Name="ButtonGuest" Content="Войти как гость" Click="ButtonGuest_Click" Background="{DynamicResource AccentSecondaryBrush}"/>
+
+            <Button x:Name="ButtonReg" Content="Регистрация" Click="ButtonReg_Click" Background="{x:Null}" Foreground="{DynamicResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+        </StackPanel>
+    </Grid>
+</Page>

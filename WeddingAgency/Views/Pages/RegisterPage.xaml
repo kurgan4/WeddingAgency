@@ -1,0 +1,110 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegisterPage">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="360" Margin="0,20">
+            <StackPanel>
+                <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <Border BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Личная информация" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Фамилия:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <Grid Margin="0,0,0,10">
+                            <TextBox x:Name="TxtLastName"/>
+                            <TextBlock Text="Иванов" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TxtLastName}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Text="Имя:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <Grid Margin="0,0,0,10">
+                            <TextBox x:Name="TxtFirstName"/>
+                            <TextBlock Text="Иван" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TxtFirstName}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Text="Номер телефона:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <TextBox x:Name="TxtPhone" Text="+7 (___) ___-__-__" GotFocus="TxtPhone_GotFocus" PreviewTextInput="TxtPhone_PreviewTextInput" PreviewKeyDown="TxtPhone_PreviewKeyDown" Margin="0,0,0,5"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1" CornerRadius="8" Padding="15" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Данные для входа" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource AccentMainBrush}" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Логин:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <Grid Margin="0,0,0,10">
+                            <TextBox x:Name="TxtLogin"/>
+                            <TextBlock Text="Придумайте уникальный логин" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TxtLogin}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Text="Email:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <Grid Margin="0,0,0,10">
+                            <TextBox x:Name="TxtEmail"/>
+                            <TextBlock Text="example@mail.ru" Margin="12,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TxtEmail}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Text="Пароль:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <PasswordBox x:Name="PassBox" Height="38" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Подтверждение пароля:" FontWeight="SemiBold" Margin="0,0,0,3"/>
+                        <PasswordBox x:Name="PassBoxConfirm" Height="38" Margin="0,0,0,5"/>
+                    </StackPanel>
+                </Border>
+
+                <Button Content="Создать аккаунт" Click="Register_Click" Margin="0,0,0,10"/>
+                <Button Content="Назад к входу" Click="Back_Click" Background="{x:Null}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,107 @@
+﻿<Page x:Class="WeddingAgency.Views.Pages.CheckoutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WeddingAgency.Views.Pages" 
+      mc:Ignorable="d" Title="Оформление заказа" d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="360"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Ваша корзина" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,20"/>
+
+            <ListBox x:Name="ListCartItems" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="10" Margin="0,0,0,10" Padding="15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="50" Height="50" CornerRadius="6" Background="#F4F4F4" Margin="0,0,15,0" VerticalAlignment="Center" Loaded="CartItemImage_Loaded">
+                                    <Image x:Name="ImgItem" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Loaded="CartItemRow_Loaded">
+                                    <TextBlock x:Name="TxtItemName" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                    <TextBlock x:Name="TxtPartnerName" Text="{Binding Partner.PartnerName}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+
+                                    <StackPanel x:Name="PanelTimeInfo" Orientation="Horizontal" Margin="0,5,0,0">
+                                        <TextBlock Text="Время: с " FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding StartTime, StringFormat={}{0:hh\:mm}}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock Text=" до " FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding EndTime, StringFormat={}{0:hh\:mm}}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0" Loaded="CartItemQty_Loaded">
+                                    <TextBlock x:Name="TxtQtyLabel" Text="Кол-во: " FontSize="14" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                    <TextBlock x:Name="TxtQtyValue" Text="{Binding Quantity}" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="3" Content="Удалить" Click="BtnRemove_Click" Background="{DynamicResource DangerBrush}" Foreground="White" Padding="10,5" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+
+        <Border Grid.Column="1" Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1.5" CornerRadius="12" Padding="20" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="Параметры заказа" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,15"/>
+
+                <TextBlock Text="Название заказа:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="TxtEventTitle" Text="Наша идеальная свадьба" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Способ оплаты:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="ComboPaymentMethods" DisplayMemberPath="MethodName" Height="38" Margin="0,0,0,15"/>
+
+                <StackPanel x:Name="PanelWeddingDetails">
+                    <TextBlock Text="Дата проведения:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <DatePicker x:Name="DateEvent" Height="38" Margin="0,0,0,12" VerticalContentAlignment="Center"/>
+
+                    <StackPanel x:Name="PanelCustomLocation">
+                        <TextBlock Text="Место проведения (Укажите адрес):" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtCustomLocation" Text="Ресторан / Банкетный зал" Margin="0,0,0,15"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Border BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="0,1,0,0" Padding="0,12,0,0" Margin="0,0,0,15">
+                    <Grid>
+                        <TextBlock Text="Итого к оплате:" FontSize="15" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <TextBlock x:Name="TxtTotalSum" Text="0.00 руб." FontSize="18" FontWeight="Bold" Foreground="{DynamicResource AccentSecondaryBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Border>
+
+                <Button Content="Оформить заказ" Click="BtnCheckout_Click" Padding="0,12" FontSize="16" FontWeight="Bold"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
