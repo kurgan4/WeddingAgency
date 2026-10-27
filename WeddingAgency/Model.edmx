@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище WeddingAgencyDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище WeddingAgencyDB2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CatalogItems">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -25,11 +25,11 @@
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="ItemID" Type="int" />
           <Property Name="PartnerID" Type="int" />
+          <Property Name="HolidayProductID" Type="int" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="PricePerUnit" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="StartTime" Type="time" Precision="7" />
           <Property Name="EndTime" Type="time" Precision="7" />
-          <Property Name="HolidayProductID" Type="int" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -64,12 +64,12 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductTypeID" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Price" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="500" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="ProductTypeID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HolidayProductTypes">
           <Key>
@@ -157,7 +157,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDarkMode" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_CatalogItems_Partners">
+        <Association Name="FK__CatalogIt__Partn__5FB337D6">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
           <End Role="CatalogItems" Type="Self.CatalogItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,19 +169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_Catalog">
-          <End Role="CatalogItems" Type="Self.CatalogItems" Multiplicity="0..1" />
-          <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CatalogItems">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="EventItems">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventItems_Events">
+        <Association Name="FK__EventItem__Event__797309D9">
           <End Role="Events" Type="Self.Events" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -195,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_HolidayProducts">
+        <Association Name="FK__EventItem__Holid__7C4F7684">
           <End Role="HolidayProducts" Type="Self.HolidayProducts" Multiplicity="0..1" />
           <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,7 +195,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_Partners">
+        <Association Name="FK__EventItem__ItemI__7A672E12">
+          <End Role="CatalogItems" Type="Self.CatalogItems" Multiplicity="0..1" />
+          <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogItems">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="EventItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventItem__Partn__7B5B524B">
           <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
           <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -219,7 +219,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Events_Clients">
+        <Association Name="FK__Events__ClientID__72C60C4A">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,19 +231,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Events_EventStatuses">
-          <End Role="EventStatuses" Type="Self.EventStatuses" Multiplicity="1" />
-          <End Role="Events" Type="Self.Events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventStatuses">
-              <PropertyRef Name="StatusID" />
-            </Principal>
-            <Dependent Role="Events">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Events_EventTypes">
+        <Association Name="FK__Events__EventTyp__73BA3083">
           <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -255,7 +243,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HolidayProducts_Types">
+        <Association Name="FK__Events__StatusID__74AE54BC">
+          <End Role="EventStatuses" Type="Self.EventStatuses" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HolidayPr__Produ__6754599E">
           <End Role="HolidayProductTypes" Type="Self.HolidayProductTypes" Multiplicity="1" />
           <End Role="HolidayProducts" Type="Self.HolidayProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -267,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Partners_Categories">
+        <Association Name="FK__Partners__Catego__59FA5E80">
           <End Role="ItemCategories" Type="Self.ItemCategories" Multiplicity="1" />
           <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
           <ReferentialConstraint>
@@ -279,7 +279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reviews_Users">
+        <Association Name="FK__Reviews__ClientI__0F624AF8">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -293,7 +293,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_Events">
+        <Association Name="FK__Transacti__Event__08B54D69">
           <End Role="Events" Type="Self.Events" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -307,7 +307,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_PaymentMethods">
+        <Association Name="FK__Transacti__Payme__0B91BA14">
           <End Role="PaymentMethods" Type="Self.PaymentMethods" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -319,7 +319,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_Types">
+        <Association Name="FK__Transacti__Trans__09A971A2">
           <End Role="TransactionTypes" Type="Self.TransactionTypes" Multiplicity="1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -331,7 +331,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Roles">
+        <Association Name="FK__Users__RoleID__5070F446">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -343,7 +343,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище WeddingAgencyDBModelContainer">
+        <EntityContainer Name="Хранилище WeddingAgencyDB2ModelContainer">
           <EntitySet Name="CatalogItems" EntityType="Self.CatalogItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventItems" EntityType="Self.EventItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
@@ -359,71 +359,72 @@
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionTypes" EntityType="Self.TransactionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CatalogItems_Partners" Association="Self.FK_CatalogItems_Partners">
+          <AssociationSet Name="FK__CatalogIt__Partn__5FB337D6" Association="Self.FK__CatalogIt__Partn__5FB337D6">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="CatalogItems" EntitySet="CatalogItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Catalog" Association="Self.FK_EventItems_Catalog">
-            <End Role="CatalogItems" EntitySet="CatalogItems" />
-            <End Role="EventItems" EntitySet="EventItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Events" Association="Self.FK_EventItems_Events">
+          <AssociationSet Name="FK__EventItem__Event__797309D9" Association="Self.FK__EventItem__Event__797309D9">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_HolidayProducts" Association="Self.FK_EventItems_HolidayProducts">
+          <AssociationSet Name="FK__EventItem__Holid__7C4F7684" Association="Self.FK__EventItem__Holid__7C4F7684">
             <End Role="HolidayProducts" EntitySet="HolidayProducts" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Partners" Association="Self.FK_EventItems_Partners">
+          <AssociationSet Name="FK__EventItem__ItemI__7A672E12" Association="Self.FK__EventItem__ItemI__7A672E12">
+            <End Role="CatalogItems" EntitySet="CatalogItems" />
+            <End Role="EventItems" EntitySet="EventItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventItem__Partn__7B5B524B" Association="Self.FK__EventItem__Partn__7B5B524B">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_Clients" Association="Self.FK_Events_Clients">
+          <AssociationSet Name="FK__Events__ClientID__72C60C4A" Association="Self.FK__Events__ClientID__72C60C4A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_EventStatuses" Association="Self.FK_Events_EventStatuses">
-            <End Role="EventStatuses" EntitySet="EventStatuses" />
-            <End Role="Events" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Events_EventTypes" Association="Self.FK_Events_EventTypes">
+          <AssociationSet Name="FK__Events__EventTyp__73BA3083" Association="Self.FK__Events__EventTyp__73BA3083">
             <End Role="EventTypes" EntitySet="EventTypes" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_HolidayProducts_Types" Association="Self.FK_HolidayProducts_Types">
+          <AssociationSet Name="FK__Events__StatusID__74AE54BC" Association="Self.FK__Events__StatusID__74AE54BC">
+            <End Role="EventStatuses" EntitySet="EventStatuses" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HolidayPr__Produ__6754599E" Association="Self.FK__HolidayPr__Produ__6754599E">
             <End Role="HolidayProductTypes" EntitySet="HolidayProductTypes" />
             <End Role="HolidayProducts" EntitySet="HolidayProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Partners_Categories" Association="Self.FK_Partners_Categories">
+          <AssociationSet Name="FK__Partners__Catego__59FA5E80" Association="Self.FK__Partners__Catego__59FA5E80">
             <End Role="ItemCategories" EntitySet="ItemCategories" />
             <End Role="Partners" EntitySet="Partners" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+          <AssociationSet Name="FK__Reviews__ClientI__0F624AF8" Association="Self.FK__Reviews__ClientI__0F624AF8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_Events" Association="Self.FK_Transactions_Events">
+          <AssociationSet Name="FK__Transacti__Event__08B54D69" Association="Self.FK__Transacti__Event__08B54D69">
             <End Role="Events" EntitySet="Events" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_PaymentMethods" Association="Self.FK_Transactions_PaymentMethods">
+          <AssociationSet Name="FK__Transacti__Payme__0B91BA14" Association="Self.FK__Transacti__Payme__0B91BA14">
             <End Role="PaymentMethods" EntitySet="PaymentMethods" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_Types" Association="Self.FK_Transactions_Types">
+          <AssociationSet Name="FK__Transacti__Trans__09A971A2" Association="Self.FK__Transacti__Trans__09A971A2">
             <End Role="TransactionTypes" EntitySet="TransactionTypes" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+          <AssociationSet Name="FK__Users__RoleID__5070F446" Association="Self.FK__Users__RoleID__5070F446">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WeddingAgencyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WeddingAgencyDB2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CatalogItems">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -435,8 +436,8 @@
           <Property Name="BasePrice" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Partners" Relationship="Self.FK_CatalogItems_Partners" FromRole="CatalogItems" ToRole="Partners" />
-          <NavigationProperty Name="EventItems" Relationship="Self.FK_EventItems_Catalog" FromRole="CatalogItems" ToRole="EventItems" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK__CatalogIt__Partn__5FB337D6" FromRole="CatalogItems" ToRole="Partners" />
+          <NavigationProperty Name="EventItems" Relationship="Self.FK__EventItem__ItemI__7A672E12" FromRole="CatalogItems" ToRole="EventItems" />
         </EntityType>
         <EntityType Name="EventItems">
           <Key>
@@ -446,15 +447,15 @@
           <Property Name="EventID" Type="Int32" Nullable="false" />
           <Property Name="ItemID" Type="Int32" />
           <Property Name="PartnerID" Type="Int32" />
+          <Property Name="HolidayProductID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PricePerUnit" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="StartTime" Type="Time" Precision="7" />
           <Property Name="EndTime" Type="Time" Precision="7" />
-          <Property Name="HolidayProductID" Type="Int32" />
-          <NavigationProperty Name="CatalogItems" Relationship="Self.FK_EventItems_Catalog" FromRole="EventItems" ToRole="CatalogItems" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_EventItems_Events" FromRole="EventItems" ToRole="Events" />
-          <NavigationProperty Name="HolidayProducts" Relationship="Self.FK_EventItems_HolidayProducts" FromRole="EventItems" ToRole="HolidayProducts" />
-          <NavigationProperty Name="Partners" Relationship="Self.FK_EventItems_Partners" FromRole="EventItems" ToRole="Partners" />
+          <NavigationProperty Name="CatalogItems" Relationship="Self.FK__EventItem__ItemI__7A672E12" FromRole="EventItems" ToRole="CatalogItems" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__EventItem__Event__797309D9" FromRole="EventItems" ToRole="Events" />
+          <NavigationProperty Name="HolidayProducts" Relationship="Self.FK__EventItem__Holid__7C4F7684" FromRole="EventItems" ToRole="HolidayProducts" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK__EventItem__Partn__7B5B524B" FromRole="EventItems" ToRole="Partners" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -469,11 +470,11 @@
           <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Budget" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="EventItems" Relationship="Self.FK_EventItems_Events" FromRole="Events" ToRole="EventItems" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Events_Clients" FromRole="Events" ToRole="Users" />
-          <NavigationProperty Name="EventStatuses" Relationship="Self.FK_Events_EventStatuses" FromRole="Events" ToRole="EventStatuses" />
-          <NavigationProperty Name="EventTypes" Relationship="Self.FK_Events_EventTypes" FromRole="Events" ToRole="EventTypes" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Events" FromRole="Events" ToRole="Transactions" />
+          <NavigationProperty Name="EventItems" Relationship="Self.FK__EventItem__Event__797309D9" FromRole="Events" ToRole="EventItems" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Events__ClientID__72C60C4A" FromRole="Events" ToRole="Users" />
+          <NavigationProperty Name="EventTypes" Relationship="Self.FK__Events__EventTyp__73BA3083" FromRole="Events" ToRole="EventTypes" />
+          <NavigationProperty Name="EventStatuses" Relationship="Self.FK__Events__StatusID__74AE54BC" FromRole="Events" ToRole="EventStatuses" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Event__08B54D69" FromRole="Events" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="EventStatuses">
           <Key>
@@ -481,7 +482,7 @@
           </Key>
           <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Events_EventStatuses" FromRole="EventStatuses" ToRole="Events" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__Events__StatusID__74AE54BC" FromRole="EventStatuses" ToRole="Events" />
         </EntityType>
         <EntityType Name="EventTypes">
           <Key>
@@ -489,21 +490,21 @@
           </Key>
           <Property Name="EventTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Events_EventTypes" FromRole="EventTypes" ToRole="Events" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__Events__EventTyp__73BA3083" FromRole="EventTypes" ToRole="Events" />
         </EntityType>
         <EntityType Name="HolidayProducts">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EventItems" Relationship="Self.FK_EventItems_HolidayProducts" FromRole="HolidayProducts" ToRole="EventItems" />
-          <NavigationProperty Name="HolidayProductTypes" Relationship="Self.FK_HolidayProducts_Types" FromRole="HolidayProducts" ToRole="HolidayProductTypes" />
+          <NavigationProperty Name="EventItems" Relationship="Self.FK__EventItem__Holid__7C4F7684" FromRole="HolidayProducts" ToRole="EventItems" />
+          <NavigationProperty Name="HolidayProductTypes" Relationship="Self.FK__HolidayPr__Produ__6754599E" FromRole="HolidayProducts" ToRole="HolidayProductTypes" />
         </EntityType>
         <EntityType Name="HolidayProductTypes">
           <Key>
@@ -511,7 +512,7 @@
           </Key>
           <Property Name="ProductTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HolidayProducts" Relationship="Self.FK_HolidayProducts_Types" FromRole="HolidayProductTypes" ToRole="HolidayProducts" />
+          <NavigationProperty Name="HolidayProducts" Relationship="Self.FK__HolidayPr__Produ__6754599E" FromRole="HolidayProductTypes" ToRole="HolidayProducts" />
         </EntityType>
         <EntityType Name="ItemCategories">
           <Key>
@@ -519,7 +520,7 @@
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Partners" Relationship="Self.FK_Partners_Categories" FromRole="ItemCategories" ToRole="Partners" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK__Partners__Catego__59FA5E80" FromRole="ItemCategories" ToRole="Partners" />
         </EntityType>
         <EntityType Name="Partners">
           <Key>
@@ -533,9 +534,9 @@
           <Property Name="PersonalPrice" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CatalogItems" Relationship="Self.FK_CatalogItems_Partners" FromRole="Partners" ToRole="CatalogItems" />
-          <NavigationProperty Name="EventItems" Relationship="Self.FK_EventItems_Partners" FromRole="Partners" ToRole="EventItems" />
-          <NavigationProperty Name="ItemCategories" Relationship="Self.FK_Partners_Categories" FromRole="Partners" ToRole="ItemCategories" />
+          <NavigationProperty Name="CatalogItems" Relationship="Self.FK__CatalogIt__Partn__5FB337D6" FromRole="Partners" ToRole="CatalogItems" />
+          <NavigationProperty Name="EventItems" Relationship="Self.FK__EventItem__Partn__7B5B524B" FromRole="Partners" ToRole="EventItems" />
+          <NavigationProperty Name="ItemCategories" Relationship="Self.FK__Partners__Catego__59FA5E80" FromRole="Partners" ToRole="ItemCategories" />
         </EntityType>
         <EntityType Name="PaymentMethods">
           <Key>
@@ -543,7 +544,7 @@
           </Key>
           <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_PaymentMethods" FromRole="PaymentMethods" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Payme__0B91BA14" FromRole="PaymentMethods" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Reviews">
           <Key>
@@ -554,7 +555,7 @@
           <Property Name="Rating" Type="Int32" Nullable="false" />
           <Property Name="ReviewText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Reviews_Users" FromRole="Reviews" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Reviews__ClientI__0F624AF8" FromRole="Reviews" ToRole="Users" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -562,7 +563,7 @@
           </Key>
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__5070F446" FromRole="Roles" ToRole="Users" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -575,9 +576,9 @@
           <Property Name="PaymentMethodID" Type="Int32" />
           <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Transactions_Events" FromRole="Transactions" ToRole="Events" />
-          <NavigationProperty Name="PaymentMethods" Relationship="Self.FK_Transactions_PaymentMethods" FromRole="Transactions" ToRole="PaymentMethods" />
-          <NavigationProperty Name="TransactionTypes" Relationship="Self.FK_Transactions_Types" FromRole="Transactions" ToRole="TransactionTypes" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__Transacti__Event__08B54D69" FromRole="Transactions" ToRole="Events" />
+          <NavigationProperty Name="PaymentMethods" Relationship="Self.FK__Transacti__Payme__0B91BA14" FromRole="Transactions" ToRole="PaymentMethods" />
+          <NavigationProperty Name="TransactionTypes" Relationship="Self.FK__Transacti__Trans__09A971A2" FromRole="Transactions" ToRole="TransactionTypes" />
         </EntityType>
         <EntityType Name="TransactionTypes">
           <Key>
@@ -585,7 +586,7 @@
           </Key>
           <Property Name="TransactionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Types" FromRole="TransactionTypes" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Trans__09A971A2" FromRole="TransactionTypes" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -602,11 +603,11 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDarkMode" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Clients" FromRole="Users" ToRole="Events" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
-          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__Events__ClientID__72C60C4A" FromRole="Users" ToRole="Events" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__ClientI__0F624AF8" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__Users__RoleID__5070F446" FromRole="Users" ToRole="Roles" />
         </EntityType>
-        <Association Name="FK_CatalogItems_Partners">
+        <Association Name="FK__CatalogIt__Partn__5FB337D6">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
           <End Role="CatalogItems" Type="Self.CatalogItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -618,7 +619,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_Catalog">
+        <Association Name="FK__EventItem__ItemI__7A672E12">
           <End Role="CatalogItems" Type="Self.CatalogItems" Multiplicity="0..1" />
           <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -630,7 +631,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_Events">
+        <Association Name="FK__EventItem__Event__797309D9">
           <End Role="Events" Type="Self.Events" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -644,7 +645,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_HolidayProducts">
+        <Association Name="FK__EventItem__Holid__7C4F7684">
           <End Role="HolidayProducts" Type="Self.HolidayProducts" Multiplicity="0..1" />
           <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -656,7 +657,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventItems_Partners">
+        <Association Name="FK__EventItem__Partn__7B5B524B">
           <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
           <End Role="EventItems" Type="Self.EventItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -668,7 +669,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Events_Clients">
+        <Association Name="FK__Events__ClientID__72C60C4A">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -680,19 +681,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Events_EventStatuses">
-          <End Role="EventStatuses" Type="Self.EventStatuses" Multiplicity="1" />
-          <End Role="Events" Type="Self.Events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventStatuses">
-              <PropertyRef Name="StatusID" />
-            </Principal>
-            <Dependent Role="Events">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Events_EventTypes">
+        <Association Name="FK__Events__EventTyp__73BA3083">
           <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -704,7 +693,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_Events">
+        <Association Name="FK__Events__StatusID__74AE54BC">
+          <End Role="EventStatuses" Type="Self.EventStatuses" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Event__08B54D69">
           <End Role="Events" Type="Self.Events" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -718,7 +719,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HolidayProducts_Types">
+        <Association Name="FK__HolidayPr__Produ__6754599E">
           <End Role="HolidayProductTypes" Type="Self.HolidayProductTypes" Multiplicity="1" />
           <End Role="HolidayProducts" Type="Self.HolidayProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -730,7 +731,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Partners_Categories">
+        <Association Name="FK__Partners__Catego__59FA5E80">
           <End Role="ItemCategories" Type="Self.ItemCategories" Multiplicity="1" />
           <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
           <ReferentialConstraint>
@@ -742,7 +743,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_PaymentMethods">
+        <Association Name="FK__Transacti__Payme__0B91BA14">
           <End Role="PaymentMethods" Type="Self.PaymentMethods" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -754,7 +755,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reviews_Users">
+        <Association Name="FK__Reviews__ClientI__0F624AF8">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -768,7 +769,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Roles">
+        <Association Name="FK__Users__RoleID__5070F446">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -780,7 +781,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transactions_Types">
+        <Association Name="FK__Transacti__Trans__09A971A2">
           <End Role="TransactionTypes" Type="Self.TransactionTypes" Multiplicity="1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -792,7 +793,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WeddingAgencyDBEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WeddingAgencyDB2Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CatalogItems" EntityType="Self.CatalogItems" />
           <EntitySet Name="EventItems" EntityType="Self.EventItems" />
           <EntitySet Name="Events" EntityType="Self.Events" />
@@ -808,63 +809,63 @@
           <EntitySet Name="Transactions" EntityType="Self.Transactions" />
           <EntitySet Name="TransactionTypes" EntityType="Self.TransactionTypes" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_CatalogItems_Partners" Association="Self.FK_CatalogItems_Partners">
+          <AssociationSet Name="FK__CatalogIt__Partn__5FB337D6" Association="Self.FK__CatalogIt__Partn__5FB337D6">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="CatalogItems" EntitySet="CatalogItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Catalog" Association="Self.FK_EventItems_Catalog">
+          <AssociationSet Name="FK__EventItem__ItemI__7A672E12" Association="Self.FK__EventItem__ItemI__7A672E12">
             <End Role="CatalogItems" EntitySet="CatalogItems" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Events" Association="Self.FK_EventItems_Events">
+          <AssociationSet Name="FK__EventItem__Event__797309D9" Association="Self.FK__EventItem__Event__797309D9">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_HolidayProducts" Association="Self.FK_EventItems_HolidayProducts">
+          <AssociationSet Name="FK__EventItem__Holid__7C4F7684" Association="Self.FK__EventItem__Holid__7C4F7684">
             <End Role="HolidayProducts" EntitySet="HolidayProducts" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventItems_Partners" Association="Self.FK_EventItems_Partners">
+          <AssociationSet Name="FK__EventItem__Partn__7B5B524B" Association="Self.FK__EventItem__Partn__7B5B524B">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="EventItems" EntitySet="EventItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_Clients" Association="Self.FK_Events_Clients">
+          <AssociationSet Name="FK__Events__ClientID__72C60C4A" Association="Self.FK__Events__ClientID__72C60C4A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_EventStatuses" Association="Self.FK_Events_EventStatuses">
-            <End Role="EventStatuses" EntitySet="EventStatuses" />
-            <End Role="Events" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Events_EventTypes" Association="Self.FK_Events_EventTypes">
+          <AssociationSet Name="FK__Events__EventTyp__73BA3083" Association="Self.FK__Events__EventTyp__73BA3083">
             <End Role="EventTypes" EntitySet="EventTypes" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_Events" Association="Self.FK_Transactions_Events">
+          <AssociationSet Name="FK__Events__StatusID__74AE54BC" Association="Self.FK__Events__StatusID__74AE54BC">
+            <End Role="EventStatuses" EntitySet="EventStatuses" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Event__08B54D69" Association="Self.FK__Transacti__Event__08B54D69">
             <End Role="Events" EntitySet="Events" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_HolidayProducts_Types" Association="Self.FK_HolidayProducts_Types">
+          <AssociationSet Name="FK__HolidayPr__Produ__6754599E" Association="Self.FK__HolidayPr__Produ__6754599E">
             <End Role="HolidayProductTypes" EntitySet="HolidayProductTypes" />
             <End Role="HolidayProducts" EntitySet="HolidayProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Partners_Categories" Association="Self.FK_Partners_Categories">
+          <AssociationSet Name="FK__Partners__Catego__59FA5E80" Association="Self.FK__Partners__Catego__59FA5E80">
             <End Role="ItemCategories" EntitySet="ItemCategories" />
             <End Role="Partners" EntitySet="Partners" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_PaymentMethods" Association="Self.FK_Transactions_PaymentMethods">
+          <AssociationSet Name="FK__Transacti__Payme__0B91BA14" Association="Self.FK__Transacti__Payme__0B91BA14">
             <End Role="PaymentMethods" EntitySet="PaymentMethods" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+          <AssociationSet Name="FK__Reviews__ClientI__0F624AF8" Association="Self.FK__Reviews__ClientI__0F624AF8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+          <AssociationSet Name="FK__Users__RoleID__5070F446" Association="Self.FK__Users__RoleID__5070F446">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transactions_Types" Association="Self.FK_Transactions_Types">
+          <AssociationSet Name="FK__Transacti__Trans__09A971A2" Association="Self.FK__Transacti__Trans__09A971A2">
             <End Role="TransactionTypes" EntitySet="TransactionTypes" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
@@ -874,9 +875,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище WeddingAgencyDBModelContainer" CdmEntityContainer="WeddingAgencyDBEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище WeddingAgencyDB2ModelContainer" CdmEntityContainer="WeddingAgencyDB2Entities2">
           <EntitySetMapping Name="CatalogItems">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.CatalogItems">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.CatalogItems">
               <MappingFragment StoreEntitySet="CatalogItems">
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
@@ -889,22 +890,22 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EventItems">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.EventItems">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.EventItems">
               <MappingFragment StoreEntitySet="EventItems">
                 <ScalarProperty Name="EventItemID" ColumnName="EventItemID" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="HolidayProductID" ColumnName="HolidayProductID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="HolidayProductID" ColumnName="HolidayProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Events">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Events">
               <MappingFragment StoreEntitySet="Events">
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -919,7 +920,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EventStatuses">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.EventStatuses">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.EventStatuses">
               <MappingFragment StoreEntitySet="EventStatuses">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
@@ -927,7 +928,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EventTypes">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.EventTypes">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.EventTypes">
               <MappingFragment StoreEntitySet="EventTypes">
                 <ScalarProperty Name="EventTypeID" ColumnName="EventTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -935,20 +936,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HolidayProducts">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.HolidayProducts">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.HolidayProducts">
               <MappingFragment StoreEntitySet="HolidayProducts">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HolidayProductTypes">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.HolidayProductTypes">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.HolidayProductTypes">
               <MappingFragment StoreEntitySet="HolidayProductTypes">
                 <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -956,7 +957,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemCategories">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.ItemCategories">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.ItemCategories">
               <MappingFragment StoreEntitySet="ItemCategories">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -964,7 +965,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Partners">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Partners">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Partners">
               <MappingFragment StoreEntitySet="Partners">
                 <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
@@ -978,7 +979,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentMethods">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.PaymentMethods">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.PaymentMethods">
               <MappingFragment StoreEntitySet="PaymentMethods">
                 <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="MethodName" ColumnName="MethodName" />
@@ -986,7 +987,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Reviews">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Reviews">
               <MappingFragment StoreEntitySet="Reviews">
                 <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -997,7 +998,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Roles">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Roles">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -1005,7 +1006,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Transactions">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Transactions">
               <MappingFragment StoreEntitySet="Transactions">
                 <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
@@ -1018,7 +1019,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TransactionTypes">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.TransactionTypes">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.TransactionTypes">
               <MappingFragment StoreEntitySet="TransactionTypes">
                 <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -1026,7 +1027,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="WeddingAgencyDBModel.Users">
+            <EntityTypeMapping TypeName="WeddingAgencyDB2Model.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
@@ -1058,7 +1059,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>
     </Options>

@@ -8,7 +8,7 @@ namespace WeddingAgency
 {
     internal class Core
     {
-        public static WeddingAgencyDBEntities2 Context = new WeddingAgencyDBEntities2();
+        public static WeddingAgencyDB2Entities2 Context = new WeddingAgencyDB2Entities2();
 
         public static int CurrentUserId { get; set; }
     }

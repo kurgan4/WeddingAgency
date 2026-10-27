@@ -4,37 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9ccf87ebaae74303a13560ac89ea7536" Name="Diagram1">
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.CatalogItems" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.EventItems" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Events" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.EventStatuses" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.EventTypes" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.HolidayProducts" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.HolidayProductTypes" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.ItemCategories" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Partners" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.PaymentMethods" Width="1.5" PointX="8.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Reviews" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Roles" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Transactions" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.TransactionTypes" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeddingAgencyDBModel.Users" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_CatalogItems_Partners" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_EventItems_Catalog" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_EventItems_Events" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_EventItems_HolidayProducts" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_EventItems_Partners" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Events_Clients" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Events_EventStatuses" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Events_EventTypes" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Transactions_Events" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_HolidayProducts_Types" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Partners_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Transactions_PaymentMethods" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Reviews_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Users_Roles" ManuallyRouted="false" />
-        <AssociationConnector Association="WeddingAgencyDBModel.FK_Transactions_Types" ManuallyRouted="false" />
+      <Diagram DiagramId="bb197304549145d5b1f8433dd6715f5b" Name="Diagram1">
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.CatalogItems" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.EventItems" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Events" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.EventStatuses" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.EventTypes" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.HolidayProducts" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.HolidayProductTypes" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.ItemCategories" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Partners" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.PaymentMethods" Width="1.5" PointX="8.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Reviews" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Roles" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Transactions" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.TransactionTypes" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAgencyDB2Model.Users" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__CatalogIt__Partn__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__EventItem__ItemI__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__EventItem__Event__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__EventItem__Holid__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__EventItem__Partn__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Events__ClientID__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Events__EventTyp__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Events__StatusID__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Transacti__Event__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__HolidayPr__Produ__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Partners__Catego__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Transacti__Payme__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Reviews__ClientI__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Users__RoleID__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAgencyDB2Model.FK__Transacti__Trans__09A971A2" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
